@@ -1,2 +1,2 @@
-# encoder
-Label and on hot encoder Python
+# Encoder
+Label and one hot encoder Python
