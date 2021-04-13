@@ -10,9 +10,6 @@ class LabelEncoder:
 		self.label = label
 		self.n_classes = len(np.unique(self.label))
 	
-	def fit(self):
-		print('LabelEncoder()')
-	
 	@property
 	def transform(self):
 		labels = dict(zip(np.unique(self.label), np.arange(self.n_classes)))
