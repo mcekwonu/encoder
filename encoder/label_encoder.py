@@ -9,31 +9,22 @@ class LabelEncoder:
 	def __init__(self, label):
 		self.label = label
 		self.n_classes = len(np.unique(self.label))
-	
+
 	@property
 	def transform(self):
-		labels = dict(zip(np.unique(self.label), np.arange(self.n_classes)))
-		targets = np.vectorize(labels.get)(self.label)
-		return targets
+		if len(self.label) != 0:
+			labels = dict(zip(np.unique(self.label), np.arange(self.n_classes)))
+			targets = np.vectorize(labels.get)(self.label)
+			return np.asarray(targets)
+		else:
+			return np.asarray([])
 	
-	@property
 	def inverse_transform(self):
-		return np.array(self.label)
+		return np.asarray(self.label)
 	
 	@property
 	def classes_(self):
-		# return np.array(sorted([l for i, l in enumerate(self.label) if l not in self.label[:i]]))
-		return np.unique(self.label)
+		return np.asarray(np.unique(self.label))
 	
-	def one_hot_encode(self):
-		if isinstance(self.label, list):
-			y = self.label
-		else:
-			y = self.label.flatten()
-		n_classes = len(np.unique(y))
-		labels = dict(zip(np.unique(y), np.arange(n_classes)))
-		targets = np.vectorize(labels.get)(y)
-		return np.eye(n_classes)[targets]
-
 	# Alias
 	fit_transform = transform

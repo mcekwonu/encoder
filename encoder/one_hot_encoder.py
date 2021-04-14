@@ -18,10 +18,14 @@ class OneHotEncoder:
 			y = self.label
 		else:
 			y = self.label.flatten()
+
 		n_classes = len(np.unique(y))
-		labels = dict(zip(np.unique(y), np.arange(n_classes)))
-		targets = np.vectorize(labels.get)(y)
-		return np.eye(n_classes)[targets]
+		if len(y) != 0:
+			labels = dict(zip(np.unique(y), np.arange(n_classes)))
+			targets = np.vectorize(labels.get)(y)
+			return np.eye(n_classes)[targets]
+		else:
+			return np.asarray([])
 		
 	@property
 	def inverse_transform(self):
